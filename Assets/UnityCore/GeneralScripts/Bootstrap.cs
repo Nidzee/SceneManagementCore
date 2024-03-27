@@ -16,6 +16,10 @@ public class Bootstrap : MonoBehaviour
         {
             // Initialize alll unity services
             () => UnityServices.InitializeAsync().AsUniTask(),
+            () => AdsInitializer.Instance.Initialize(),
+            () => InterstitialsManager.Instance.Initialize(),
+            () => RewardedAdsManager.Instance.Initialize(),
+
 
             // Initialize custom game services
             () => AnalyticsManager.Instance.Initialize(),
