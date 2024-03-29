@@ -14,6 +14,7 @@ public static class SceneLoader
 {
     const string LOGGER_KEY = "[Scene-Loader]";
     static string LastOpenedScene = null;
+    static GameSceneHandler ActiveScene = null;
 
     static void LogMessage(string message)
     {
@@ -25,6 +26,22 @@ public static class SceneLoader
         WithAnimation = 0,
         NoAnimation = 1,
     }
+
+
+
+
+
+
+
+
+    public static  GameSceneHandler GetActiveScene()
+    {
+        return ActiveScene;
+    }
+
+
+
+
 
 
 
@@ -46,10 +63,11 @@ public static class SceneLoader
             LogMessage("Target scene is already opened");
             return;
         }
+        
 
         // Launch loading of scene
         await LoadSceneAsync<T>(sceneName, animationType, callback);
-        LastOpenedScene = sceneName;
+       
         AnalyticsManager.Instance.LogSceneOpened(sceneName);
     }
 
@@ -84,8 +102,54 @@ public static class SceneLoader
 
 
 
-    static async UniTask WaitForSceneToLoad<T>(string sceneName, Action<T> callback, IProgress<float> progress)
+    static async UniTask WaitForSceneToLoad<T>(string sceneName, Action<T> callback, IProgress<float> progress) where T: GameSceneHandler
     {
+        
+        // Handle single scene opening task loading
+        bool hasAdditionalTasksToPerform = AdditionalTasks.Count > 0;
+        if (hasAdditionalTasksToPerform)
+        {
+            float percentageLeft = 0.9f;
+            float startPercentage = 0f;
+            float step = percentageLeft / AdditionalTasks.Count;
+
+            for (int i = 0; i < AdditionalTasks.Count; i++)
+            {
+                Debug.Log("[###] TASK START : " + i);
+                await AdditionalTasks[i]();
+                Debug.Log("[###] TASK FINISHED: " + i);
+                progress.Report(startPercentage += step);
+            }
+
+            AdditionalTasks = new List<ExecuteTask>();
+
+
+
+
+            // Create operation for scene loading
+            var loadSceneOPeration = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+
+            // Add callback for scene opening
+            loadSceneOPeration.completed += (s) => {
+                var targetScene = SceneManager.GetSceneByName(sceneName);
+                var targetSceneHandler = targetScene.GetRootObject<T>();
+                if (targetSceneHandler != null)
+                {
+                    LastOpenedScene = sceneName;
+                    ActiveScene = targetSceneHandler;
+                    callback?.Invoke(targetSceneHandler);
+                }
+            };
+
+
+            await loadSceneOPeration;
+            progress.Report(1f);
+            return;
+        }
+
+
+
         
         // Create operation for scene loading
         var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -97,47 +161,20 @@ public static class SceneLoader
             var targetSceneHandler = targetScene.GetRootObject<T>();
             if (targetSceneHandler != null)
             {
+                LastOpenedScene = sceneName;
+                ActiveScene = targetSceneHandler;
                 callback?.Invoke(targetSceneHandler);
             }
         };
 
-
-
-
-        // Handle single scene opening task loading
-        bool hasAdditionalTasksToPerform = AdditionalTasks.Count > 0;
-        if (!hasAdditionalTasksToPerform)
+       
+        // Update progress during scene loading
+        while (!operation.isDone)
         {
-            // Update progress during scene loading
-            while (!operation.isDone)
-            {
-                await UniTask.Yield();
-                progress.Report(operation.progress);
-            }
-            return;
+            await UniTask.Yield();
+            progress.Report(operation.progress);
         }
-
-
-
-        // Handle additional tasks loading
-        await operation;
-        progress.Report(0.1f);
-
-
-        float percentageLeft = 0.9f;
-        float startPercentage = 0.1f;
-        float step = percentageLeft / AdditionalTasks.Count;
-
-        for (int i = 0; i < AdditionalTasks.Count; i++)
-        {
-            Debug.Log("[###] TASK START : " + i);
-            await AdditionalTasks[i]();
-            Debug.Log("[###] TASK FINISHED: " + i);
-            progress.Report(startPercentage += step);
-        }
-
-        AdditionalTasks = new List<ExecuteTask>();
-        progress.Report(1f);
+        return;
     }
 
     static List<ExecuteTask> AdditionalTasks = new List<ExecuteTask>();

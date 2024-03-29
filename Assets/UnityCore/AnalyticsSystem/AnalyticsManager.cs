@@ -12,6 +12,7 @@ public class AnalyticsManager : GeneralManager<AnalyticsManager>
     {
         Debug.Log(LOGGER_KEY + " Initialization-started");
         await UniTask.Yield();
+        AnalyticsService.Instance.StartDataCollection();
         Debug.Log(LOGGER_KEY + " Initialization-finished");
     }
 
@@ -23,7 +24,7 @@ public class AnalyticsManager : GeneralManager<AnalyticsManager>
     {
         CustomEvent myEvent = new CustomEvent("SceneOpened")
         {
-            { "scene-name", sceneName },
+            { "sceneName", sceneName },
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);

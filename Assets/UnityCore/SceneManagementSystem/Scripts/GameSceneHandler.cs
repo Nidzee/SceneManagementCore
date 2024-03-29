@@ -4,18 +4,18 @@ using UnityEngine;
 public class GameSceneHandler : MonoBehaviour
 {
     public string THIS_SCENE_NAME;
-    public UnityEvent OnSceneHandlerWokeUp = new UnityEvent();
-    public UnityEvent OnSceneHandlerStart = new UnityEvent();
+    [HideInInspector] public UnityEvent OnSceneHandlerWokeUp = new UnityEvent();
+    [HideInInspector] public UnityEvent OnSceneHandlerStart = new UnityEvent();
 
 
 
 
-    public void Awake()
+    public virtual void Awake()
     {
         OnSceneHandlerWokeUp.Invoke();
     }
 
-    public void Start()
+    public virtual void Start()
     {
         OnSceneHandlerStart.Invoke();
     }

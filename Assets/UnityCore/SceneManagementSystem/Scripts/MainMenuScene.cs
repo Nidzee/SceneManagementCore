@@ -1,22 +1,36 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
 
 public class MainMenuScene : GameSceneHandler
 {
-    [SerializeField] TMP_Text _infoLabel;
+    [SerializeField] BottomMenuPanel _bottomMenuPanel;
+    [SerializeField] TopMenuPanel _topMenuPanel;
     [SerializeField] Button _InterstitialButton;
     [SerializeField] Button _RewardVideoButton;
 
 
 
-    public void SetPassingData(string passingData)
+
+
+    public override void Start()
     {
-        _infoLabel.text = passingData;
+        base.Start();
+
+        _bottomMenuPanel.Initialize();
+        _topMenuPanel.Initialize();
+
         _InterstitialButton.onClick.AddListener(() => LaunchInterstitial().Forget());
         _RewardVideoButton.onClick.AddListener(() => LaunchRewardedVideo().Forget());
     }
+
+
+
+
+
+
+
+
 
 
 

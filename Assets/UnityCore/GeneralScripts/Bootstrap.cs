@@ -24,7 +24,7 @@ public class Bootstrap : MonoBehaviour
             // Initialize custom game services
             () => AnalyticsManager.Instance.Initialize(),
             () => AuthenticationManager.Instance.Initialize(),
-            () => PlayerDataSaveSystem.Instance.Initialize(),
+            () => PlayerDataManager.Instance.Initialize(),
         };
         
         

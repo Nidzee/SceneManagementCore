@@ -6,6 +6,10 @@ public class AuthenticationManager : GeneralManager<AuthenticationManager>
 {
     const string LOGGER_KEY = "[Authentication-Manager]";
 
+    public string PlayerId;
+
+
+
     public override async UniTask Initialize()
     {
         Debug.Log(LOGGER_KEY + " Initialization-started");
@@ -19,8 +23,9 @@ public class AuthenticationManager : GeneralManager<AuthenticationManager>
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            PlayerId = AuthenticationService.Instance.PlayerId;
             Debug.Log(LOGGER_KEY + " anonimously authetication completed");
-            Debug.Log(LOGGER_KEY + " ID: " + AuthenticationService.Instance.PlayerId);
+            Debug.Log(LOGGER_KEY + " ID: " + PlayerId);
         }
         catch (AuthenticationException exception)
         {

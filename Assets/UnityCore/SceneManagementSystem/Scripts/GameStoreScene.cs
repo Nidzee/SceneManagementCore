@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class GameStoreScene : GameSceneHandler
 {
-    [SerializeField] TMP_Text _infoLabel;
+    [SerializeField] BottomMenuPanel _bottomMenuPanel;
+    [SerializeField] TopMenuPanel _topMenuPanel;
 
 
 
-    public void SetPassingData(string passingData)
+    public override void Start()
     {
-        _infoLabel.text = passingData;
+        base.Start();
+        _bottomMenuPanel.Initialize();
+        _topMenuPanel.Initialize();
     }
 }
