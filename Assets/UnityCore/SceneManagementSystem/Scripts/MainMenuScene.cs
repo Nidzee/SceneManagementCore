@@ -9,6 +9,7 @@ public class MainMenuScene : GameSceneHandler
     [SerializeField] Button _InterstitialButton;
     [SerializeField] Button _RewardVideoButton;
 
+    [SerializeField] BasicButton _openPopUpButton;
 
 
 
@@ -22,6 +23,18 @@ public class MainMenuScene : GameSceneHandler
 
         _InterstitialButton.onClick.AddListener(() => LaunchInterstitial().Forget());
         _RewardVideoButton.onClick.AddListener(() => LaunchRewardedVideo().Forget());
+
+
+        _openPopUpButton.OnClick.RemoveAllListeners();
+        _openPopUpButton.OnClick.AddListener(LaunchInfoPopUp);
+    }
+
+    void LaunchInfoPopUp()
+    {
+        InfoPopUpRoute route = new InfoPopUpRoute();
+
+        route.InitializeRoute("Nikitos popravliasia!");
+        route.StartRoute();
     }
 
 
