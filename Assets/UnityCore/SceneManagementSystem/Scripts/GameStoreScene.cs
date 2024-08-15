@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameStoreScene : GameSceneHandler
+public class GameStoreScene : GeneralSceneHandler
 {
     [SerializeField] BottomMenuPanel _bottomMenuPanel;
     [SerializeField] TopMenuPanel _topMenuPanel;

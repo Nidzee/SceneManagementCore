@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class MainMenuScene : GameSceneHandler
+public class MainMenuScene : GeneralSceneHandler
 {
     [SerializeField] BottomMenuPanel _bottomMenuPanel;
     [SerializeField] TopMenuPanel _topMenuPanel;
@@ -40,7 +40,7 @@ public class MainMenuScene : GameSceneHandler
 
     void LaunchGameScene()
     {
-
+        SceneLoader.LoadScene<GameSceneHandler>("GameScene", SceneLoader.LoadingAnimationType.WithAnimation).Forget();
     }
 
     void LaunchInfoPopUp()

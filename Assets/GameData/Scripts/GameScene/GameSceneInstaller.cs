@@ -11,7 +11,7 @@ public class GameSceneInstaller : MonoInstaller
 
     // List of widgets
     [SerializeField] ManaResourceHandler _manaHandler;
-
+    [SerializeField] GameSceneTopPanelHandler _topPanelHandler;
 
 
 
@@ -28,6 +28,7 @@ public class GameSceneInstaller : MonoInstaller
     void BindCustomWidgets()
     {
         Container.BindInstance(_manaHandler);
+        Container.BindInstance(_topPanelHandler);
     }
 
     void BindControllersLogic()

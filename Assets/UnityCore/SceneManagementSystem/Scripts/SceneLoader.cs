@@ -14,7 +14,7 @@ public static class SceneLoader
 {
     const string LOGGER_KEY = "[Scene-Loader]";
     static string LastOpenedScene = null;
-    static GameSceneHandler ActiveScene = null;
+    static GeneralSceneHandler ActiveScene = null;
 
     static void LogMessage(string message)
     {
@@ -34,7 +34,7 @@ public static class SceneLoader
 
 
 
-    public static  GameSceneHandler GetActiveScene()
+    public static  GeneralSceneHandler GetActiveScene()
     {
         return ActiveScene;
     }
@@ -48,7 +48,7 @@ public static class SceneLoader
 
 
 
-    public static async UniTask LoadScene<T>(string sceneName, LoadingAnimationType animationType = LoadingAnimationType.WithAnimation, Action<T> callback = null) where T : GameSceneHandler
+    public static async UniTask LoadScene<T>(string sceneName, LoadingAnimationType animationType = LoadingAnimationType.WithAnimation, Action<T> callback = null) where T : GeneralSceneHandler
     {
 
         // Skip if data is corrupted
@@ -73,7 +73,7 @@ public static class SceneLoader
 
 
 
-    private static async UniTask LoadSceneAsync<T>(string sceneName, LoadingAnimationType animationType = LoadingAnimationType.WithAnimation, Action<T> callback = null) where T : GameSceneHandler
+    private static async UniTask LoadSceneAsync<T>(string sceneName, LoadingAnimationType animationType = LoadingAnimationType.WithAnimation, Action<T> callback = null) where T : GeneralSceneHandler
     {
 
         // [0] Wait for loading screen loading
@@ -102,7 +102,7 @@ public static class SceneLoader
 
 
 
-    static async UniTask WaitForSceneToLoad<T>(string sceneName, Action<T> callback, IProgress<float> progress) where T: GameSceneHandler
+    static async UniTask WaitForSceneToLoad<T>(string sceneName, Action<T> callback, IProgress<float> progress) where T: GeneralSceneHandler
     {
         
         // Handle single scene opening task loading

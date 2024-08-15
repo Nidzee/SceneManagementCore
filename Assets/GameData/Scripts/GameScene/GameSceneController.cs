@@ -11,16 +11,18 @@ using Zenject;
 public class GameSceneController : IInitializable
 {
     ManaResourceHandler _manaHandler;
-
+    GameSceneTopPanelHandler _topPanelHandler;
 
 
 
 
     public GameSceneController(
-        ManaResourceHandler manaHandler
+        ManaResourceHandler manaHandler,
+        GameSceneTopPanelHandler topPanelHandler
     )
     {
         _manaHandler = manaHandler;
+        _topPanelHandler = topPanelHandler;
     }
 
 
@@ -30,6 +32,7 @@ public class GameSceneController : IInitializable
     public void Initialize()
     {
         _manaHandler.Initialize();
+        _topPanelHandler.Initialize();
 
 
 

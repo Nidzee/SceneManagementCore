@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UnityCore/SceneManagementSystem/TestingScenes/InfoPopUp.unity
     guid: f63a72f3196f9e34b9846ca5228a4c78
+  - enabled: 1
+    path: Assets/UnityCore/SceneManagementSystem/TestingScenes/GameScene.unity
+    guid: b2a11c6a037ce7f4c8a595f9bae658d3
+  - enabled: 1
+    path: Assets/UnityCore/SceneManagementSystem/TestingScenes/PauseMenuPopUp.unity
+    guid: 55951b02a327b444ea29533f10f98d53
   m_configObjects: {}

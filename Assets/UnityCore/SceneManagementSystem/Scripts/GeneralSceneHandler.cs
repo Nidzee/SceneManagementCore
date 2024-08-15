@@ -1,7 +1,7 @@
 using UnityEngine.Events;
 using UnityEngine;
 
-public class GameSceneHandler : MonoBehaviour
+public class GeneralSceneHandler : MonoBehaviour
 {
     public string THIS_SCENE_NAME;
     [HideInInspector] public UnityEvent OnSceneHandlerWokeUp = new UnityEvent();
