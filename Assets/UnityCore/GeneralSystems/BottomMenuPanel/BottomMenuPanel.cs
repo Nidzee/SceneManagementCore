@@ -37,7 +37,7 @@ public class BottomMenuPanel : MonoBehaviour
     // Buttons click handlers
     void OnMainMenuSceneButtonClick()
     {
-        SceneLoader.LoadScene<MainMenuScene>("MainMenuScene").Forget();
+        SceneLoader.LoadScene<MainMenuScene>("MainMenuScene", SceneLoader.LoadingAnimationType.WithAnimation, (m) => m.EXTERNAL_TEST()).Forget();
     }
     
     void OnGameStoreSceneButtonClick()

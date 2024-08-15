@@ -63,16 +63,16 @@ namespace UnityEngine.UI.Extensions
         [MenuItem("uGUI/Mirror Horizontally Around Anchors %;")]
         static void MirrorHorizontallyAnchors()
         {
-            MirrorHorizontally(false);
+            MirrorHorizontally_This(false);
         }
 
         [MenuItem("uGUI/Mirror Horizontally Around Parent Center %:")]
         static void MirrorHorizontallyParent()
         {
-            MirrorHorizontally(true);
+            MirrorHorizontally_This(true);
         }
 
-        static void MirrorHorizontally(bool mirrorAnchors)
+        static void MirrorHorizontally_This(bool mirrorAnchors)
         {
             foreach (Transform transform in Selection.transforms)
             {
@@ -99,16 +99,16 @@ namespace UnityEngine.UI.Extensions
         [MenuItem("uGUI/Mirror Vertically Around Anchors %'")]
         static void MirrorVerticallyAnchors()
         {
-            MirrorVertically(false);
+            MirrorVertically_This(false);
         }
 
         [MenuItem("uGUI/Mirror Vertically Around Parent Center %\"")]
         static void MirrorVerticallyParent()
         {
-            MirrorVertically(true);
+            MirrorVertically_This(true);
         }
 
-        static void MirrorVertically(bool mirrorAnchors)
+        static void MirrorVertically_This(bool mirrorAnchors)
         {
             foreach (Transform transform in Selection.transforms)
             {

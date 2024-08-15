@@ -10,6 +10,7 @@ public class MainMenuScene : GameSceneHandler
     [SerializeField] Button _RewardVideoButton;
 
     [SerializeField] BasicButton _openPopUpButton;
+    [SerializeField] BasicButton _playButton;
 
 
 
@@ -27,6 +28,19 @@ public class MainMenuScene : GameSceneHandler
 
         _openPopUpButton.OnClick.RemoveAllListeners();
         _openPopUpButton.OnClick.AddListener(LaunchInfoPopUp);
+
+        _playButton.OnClick.RemoveAllListeners();
+        _playButton.OnClick.AddListener(LaunchGameScene);
+    }
+
+    public void EXTERNAL_TEST()
+    {
+        Debug.Log("EXTERNAL TEST");
+    }
+
+    void LaunchGameScene()
+    {
+
     }
 
     void LaunchInfoPopUp()
