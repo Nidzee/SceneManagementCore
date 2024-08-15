@@ -11,7 +11,10 @@ public class GameSceneInstaller : MonoInstaller
 
     // List of widgets
     [SerializeField] ManaResourceHandler _manaHandler;
-    [SerializeField] GameSceneTopPanelHandler _topPanelHandler;
+    [SerializeField] GameSceneTopPanelController _topPanelHandler;
+    [SerializeField] GameCoinsWidget _gameCoinsWidget;
+    [SerializeField] GameTestWidget _gameTestWidget;
+    [SerializeField] TowerCardsHandler _towerCardsHandler;
 
 
 
@@ -29,10 +32,19 @@ public class GameSceneInstaller : MonoInstaller
     {
         Container.BindInstance(_manaHandler);
         Container.BindInstance(_topPanelHandler);
+        Container.BindInstance(_gameCoinsWidget);
+        Container.BindInstance(_gameTestWidget);
+        Container.BindInstance(_towerCardsHandler);
     }
 
     void BindControllersLogic()
     {
+        Container.BindInterfacesAndSelfTo<GameCoinsController>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<GameTestWidgetController>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<PauseController>().AsSingle().NonLazy();
+        
+
+
         Container.BindInterfacesAndSelfTo<GameSceneController>().AsSingle().NonLazy();
     }
 }

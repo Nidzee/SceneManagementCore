@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class GameSceneTopPanelHandler : MonoBehaviour
+public class GameSceneTopPanelController : MonoBehaviour
 {
     [SerializeField] BasicButton _pauseButton;
 

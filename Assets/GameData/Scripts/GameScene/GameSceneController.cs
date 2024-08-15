@@ -11,18 +11,29 @@ using Zenject;
 public class GameSceneController : IInitializable
 {
     ManaResourceHandler _manaHandler;
-    GameSceneTopPanelHandler _topPanelHandler;
+    GameSceneTopPanelController _topPanelController;
+    GameCoinsController _gameCoinsController;
+    GameTestWidgetController _gameTestWidgetController;
+    TowerCardsHandler _towerCardsHandler;
+
+
 
 
 
 
     public GameSceneController(
         ManaResourceHandler manaHandler,
-        GameSceneTopPanelHandler topPanelHandler
+        GameSceneTopPanelController topPanelController,
+        GameTestWidgetController gameTestWidgetController,
+        GameCoinsController gameCoinsController,
+        TowerCardsHandler towerCardsHandler
     )
     {
         _manaHandler = manaHandler;
-        _topPanelHandler = topPanelHandler;
+        _topPanelController = topPanelController;
+        _gameCoinsController = gameCoinsController;
+        _gameTestWidgetController = gameTestWidgetController;
+        _towerCardsHandler = towerCardsHandler;
     }
 
 
@@ -32,8 +43,10 @@ public class GameSceneController : IInitializable
     public void Initialize()
     {
         _manaHandler.Initialize();
-        _topPanelHandler.Initialize();
-
+        _topPanelController.Initialize();
+        _gameCoinsController.Initialize();
+        _gameTestWidgetController.Initialize();
+        _towerCardsHandler.Initialize(_gameCoinsController);
 
 
         LaunchGameLogic();
