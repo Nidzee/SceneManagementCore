@@ -17,7 +17,8 @@ MonoBehaviour:
   DetecorRange: 25
   Name: Wizzard Tower
   Icon: {fileID: 21300000, guid: 504689a638c938c46967442ba2ab52dc, type: 3}
+  TowerPrefab: {fileID: 7951929478386369622, guid: 57a68ff9d8b109d4cbb13b84f47a4f8a, type: 3}
   WarTowerConfig:
-    DamageType: 2
+    DamageAspect: 0
     DamagePoints: 30
     ReloadTime_Seconds: 1

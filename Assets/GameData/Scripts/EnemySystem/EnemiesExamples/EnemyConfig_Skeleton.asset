@@ -16,10 +16,10 @@ MonoBehaviour:
   ImpactInfo:
     DamageIncome_Sucking:
       AspectType: 0
-      Multiplyer: 0
+      Multiplyer: 1
     DamageIncome_Tanking:
       AspectType: 0
-      Multiplyer: 0
+      Multiplyer: 1
   MoveSpeed: 6
   HealthMax: 90
   ArmourMax: 30

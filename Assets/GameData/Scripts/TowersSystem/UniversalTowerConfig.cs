@@ -12,6 +12,7 @@ public class UniversalTowerConfig : ScriptableObject
     public int DetecorRange;
     public string Name;
     public Sprite Icon;
+    public GameObject TowerPrefab;
 
 
     public WarTowerConfig WarTowerConfig;
@@ -23,7 +24,7 @@ public class UniversalTowerConfig : ScriptableObject
 [System.Serializable]
 public class WarTowerConfig
 {
-    public AspectType DamageType;
+    public AspectType DamageAspect;
     public int DamagePoints;
     public float ReloadTime_Seconds;
 }

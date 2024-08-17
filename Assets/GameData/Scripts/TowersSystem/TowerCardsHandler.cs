@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 
@@ -9,9 +11,18 @@ public class TowerCardsHandler : MonoBehaviour
 {
     [SerializeField] List<UniversalTowerConfig> _TEST_TowerCards = new List<UniversalTowerConfig>();
     [SerializeField] List<TowerCardWidget> _availableWidgets = new List<TowerCardWidget>();
+    [SerializeField] Button _closeButton;
 
 
     GameCoinsController _coinsController;
+
+
+
+
+    [HideInInspector] public UnityEvent<TowerCardWidget> OnSuccessCardSelected = new UnityEvent<TowerCardWidget>();
+    [HideInInspector] public UnityEvent OnCloseClicked = new UnityEvent();
+
+
 
 
 
@@ -20,6 +31,14 @@ public class TowerCardsHandler : MonoBehaviour
     {
 
         _coinsController = coinsController;
+
+
+
+
+        _closeButton.onClick.RemoveAllListeners();
+        _closeButton.onClick.AddListener(OnCloseClicked.Invoke);
+
+
 
 
         // Hide all widgets
@@ -71,7 +90,7 @@ public class TowerCardsHandler : MonoBehaviour
         }
 
 
-        Debug.Log("[###] CREATE TOWER: " + widget.Data.Name);
         _coinsController.TryRemoveCoins(towerPrice);
+        OnSuccessCardSelected.Invoke(widget);
     }
 }

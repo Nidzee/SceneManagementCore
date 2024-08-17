@@ -15,8 +15,10 @@ public class GameSceneController : IInitializable
     GameCoinsController _gameCoinsController;
     GameTestWidgetController _gameTestWidgetController;
     TowerCardsHandler _towerCardsHandler;
-
-
+    GameTowersController _gameTowersController;
+    EnemySpawnerController _enemySpawnerController;
+    Castle _castle;
+    GameUIController _gameUIController;
 
 
 
@@ -26,6 +28,10 @@ public class GameSceneController : IInitializable
         GameSceneTopPanelController topPanelController,
         GameTestWidgetController gameTestWidgetController,
         GameCoinsController gameCoinsController,
+        GameTowersController gameTowersController,
+        EnemySpawnerController enemySpawnerController,
+        Castle castle,
+        GameUIController gameUIController,
         TowerCardsHandler towerCardsHandler
     )
     {
@@ -34,6 +40,10 @@ public class GameSceneController : IInitializable
         _gameCoinsController = gameCoinsController;
         _gameTestWidgetController = gameTestWidgetController;
         _towerCardsHandler = towerCardsHandler;
+        _gameTowersController = gameTowersController;
+        _enemySpawnerController = enemySpawnerController;
+        _gameUIController = gameUIController;
+        _castle = castle;
     }
 
 
@@ -42,11 +52,30 @@ public class GameSceneController : IInitializable
 
     public void Initialize()
     {
+        PauseController controller = new PauseController();
+
+        _castle.Initalize();
         _manaHandler.Initialize();
         _topPanelController.Initialize();
         _gameCoinsController.Initialize();
         _gameTestWidgetController.Initialize();
         _towerCardsHandler.Initialize(_gameCoinsController);
+        _gameTowersController.Initialize();
+        _enemySpawnerController.Initialize();
+        _gameUIController.Initalize();
+
+
+
+
+        _gameTowersController.OnTowerPlaceClicked.RemoveAllListeners();
+        _gameTowersController.OnTowerPlaceClicked.AddListener(DetectTowerPlaceSeleted);
+
+
+
+        _castle.OnLevelLost.RemoveAllListeners();
+        _castle.OnLevelLost.AddListener(DetectLevelLost);
+
+
 
 
         LaunchGameLogic();
@@ -55,5 +84,79 @@ public class GameSceneController : IInitializable
     void LaunchGameLogic()
     {
         _manaHandler.StartResourceGathering();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void DetectTowerPlaceSeleted(TowerPlace towerPlace)
+    {
+
+
+        var selectionStatus = towerPlace.GetThisTowerSelectionType();
+
+
+        if (selectionStatus == TowerPlaceSelectionType.TryToBuild)
+        {
+            _gameTowersController.ActivateSelectionOverlay();
+            _gameUIController.ActivateTowersWindow();
+            _towerCardsHandler.OnCloseClicked.RemoveAllListeners();
+            _towerCardsHandler.OnCloseClicked.AddListener(StopTowerSelection);
+            _towerCardsHandler.OnSuccessCardSelected.RemoveAllListeners();
+            _towerCardsHandler.OnSuccessCardSelected.AddListener(DetectTowerCardSuccessPressed);
+        }
+        else
+        {
+            Debug.Log("Tower is already build. Add logic for inspect or destroy");
+            _gameTowersController.InspectionOverlayTESTER();
+        }
+    }
+
+    void DetectTowerCardSuccessPressed(TowerCardWidget cardToApply)
+    {
+        _gameTowersController.ApplyTowerCard(cardToApply.Data);
+        StopTowerSelection();
+    }
+
+    void StopTowerSelection()
+    {
+        _gameUIController.HideTowersWindow();
+        _gameTowersController.StopSelection();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    void DetectLevelLost()
+    {
+        
     }
 }

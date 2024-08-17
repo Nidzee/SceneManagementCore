@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GameCoinsController
 {
+    const int START_COINS_AMOUNT = 500;
     GameCoinsWidget _gameCoinsWidget;
     int _gameCoinsAmount;
     public int ActualCoinsAmount => _gameCoinsAmount;
@@ -29,7 +30,7 @@ public class GameCoinsController
 
     public void Initialize()
     {
-        _gameCoinsAmount = 0;
+        _gameCoinsAmount = START_COINS_AMOUNT;
         _gameCoinsWidget.Initialize();
 
         OnGameCoinsUpdated.RemoveAllListeners();

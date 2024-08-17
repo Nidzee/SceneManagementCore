@@ -38,7 +38,6 @@ public class BasicEnemy : BasicAliveUnit
     // Initialization logic
     public virtual void Initialize(
         EnemyConfig config,
-        Transform walltTarget,
         Action<int> action)
     {
         
@@ -61,7 +60,7 @@ public class BasicEnemy : BasicAliveUnit
     public override void AcceptDamage(AspectType damageAspect, int damageIncomeValue)
     {
 
-        int resultDamage = 0;
+        int resultDamage = damageIncomeValue;
 
 
         // Calculate damage
@@ -85,6 +84,7 @@ public class BasicEnemy : BasicAliveUnit
         _healthCurrent -= resultDamage;
         if (_healthCurrent <= 0)
         {
+            Debug.Log("Enemy die");
             Die();
             return;
         }
