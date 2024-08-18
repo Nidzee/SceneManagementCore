@@ -24,8 +24,9 @@ public class TowerPlace : MonoBehaviour
 
     bool _isSelected;
     UniversalTowerConfig _thisTowerData;
+    public UniversalTowerConfig ThisTowerData => _thisTowerData;
 
-
+    Transform _createdTowerContainer;
 
 
 
@@ -35,7 +36,7 @@ public class TowerPlace : MonoBehaviour
     {
         _isSelected = false;
         _thisTowerData = null;
-
+        _createdTowerContainer = null;
 
 
 
@@ -60,11 +61,10 @@ public class TowerPlace : MonoBehaviour
 
     public void BuildTower(UniversalTowerConfig towerConfig)
     {
-        Debug.Log("BUILD: " + towerConfig.Name);
-
         _thisTowerData = towerConfig;
         var towerPrefab = towerConfig.TowerPrefab;
         var createdTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+        _createdTowerContainer = createdTower.transform;
 
 
         if (towerConfig.TowerType == TowerType.WarTower)
@@ -74,7 +74,15 @@ public class TowerPlace : MonoBehaviour
             return;
         }
 
+
+
         Debug.Log("Another tower types does not supported yet");
+    }
+
+    public void DestroyTower()
+    {
+        Destroy(_createdTowerContainer.gameObject);
+        _thisTowerData = null;
     }
 
     public TowerPlaceSelectionType GetThisTowerSelectionType()
@@ -85,6 +93,11 @@ public class TowerPlace : MonoBehaviour
         }
 
         return TowerPlaceSelectionType.Inspect;
+    }
+
+    public int CalculateCoinsIncomeForTowerDestroy()
+    {
+        return 100;
     }
 
 

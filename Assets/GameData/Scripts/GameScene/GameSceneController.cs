@@ -19,7 +19,7 @@ public class GameSceneController : IInitializable
     EnemySpawnerController _enemySpawnerController;
     Castle _castle;
     GameUIController _gameUIController;
-
+    TowerInfoUIHandler _towerInfoUIHandler;
 
 
 
@@ -32,6 +32,7 @@ public class GameSceneController : IInitializable
         EnemySpawnerController enemySpawnerController,
         Castle castle,
         GameUIController gameUIController,
+        TowerInfoUIHandler towerInfoUIHandler,
         TowerCardsHandler towerCardsHandler
     )
     {
@@ -44,6 +45,7 @@ public class GameSceneController : IInitializable
         _enemySpawnerController = enemySpawnerController;
         _gameUIController = gameUIController;
         _castle = castle;
+        _towerInfoUIHandler = towerInfoUIHandler;
     }
 
 
@@ -63,6 +65,7 @@ public class GameSceneController : IInitializable
         _gameTowersController.Initialize();
         _enemySpawnerController.Initialize();
         _gameUIController.Initalize();
+        _towerInfoUIHandler.Initialize();
 
 
 
@@ -107,18 +110,33 @@ public class GameSceneController : IInitializable
 
         if (selectionStatus == TowerPlaceSelectionType.TryToBuild)
         {
-            _gameTowersController.ActivateSelectionOverlay();
             _gameUIController.ActivateTowersWindow();
+            _gameTowersController.ActivateSelectionOverlay();
+
             _towerCardsHandler.OnCloseClicked.RemoveAllListeners();
             _towerCardsHandler.OnCloseClicked.AddListener(StopTowerSelection);
             _towerCardsHandler.OnSuccessCardSelected.RemoveAllListeners();
             _towerCardsHandler.OnSuccessCardSelected.AddListener(DetectTowerCardSuccessPressed);
+            return;
         }
-        else
+
+        if (selectionStatus == TowerPlaceSelectionType.Inspect)
         {
-            Debug.Log("Tower is already build. Add logic for inspect or destroy");
-            _gameTowersController.InspectionOverlayTESTER();
+            _gameUIController.ActivateTowerInfoUI();
+            _gameTowersController.ActivateSelectionOverlay();
+
+            _towerInfoUIHandler.InitializeInfoForTower(towerPlace);
+            _towerInfoUIHandler.OnCloseButtonClicked.RemoveAllListeners();
+            _towerInfoUIHandler.OnCloseButtonClicked.AddListener(StopTowerSelection);
+
+            _towerInfoUIHandler.OnSellButtonClicked.RemoveAllListeners();
+            _towerInfoUIHandler.OnSellButtonClicked.AddListener(SellTower);
+            return;
         }
+
+
+        CustomLogger.LogError("Error! Wrong type of tower-selection passed. Aborted.");
+        StopTowerSelection();
     }
 
     void DetectTowerCardSuccessPressed(TowerCardWidget cardToApply)
@@ -127,9 +145,21 @@ public class GameSceneController : IInitializable
         StopTowerSelection();
     }
 
+    void SellTower(TowerPlace towerPlace)
+    {
+        // Add coins
+        _gameCoinsController.AddGameCoins(towerPlace.CalculateCoinsIncomeForTowerDestroy());
+
+        // Destroy tower on place
+        towerPlace.DestroyTower();
+
+        // Stop selection
+        StopTowerSelection();
+    }
+
     void StopTowerSelection()
     {
-        _gameUIController.HideTowersWindow();
+        _gameUIController.ActivateManaScreen();
         _gameTowersController.StopSelection();
     }
 

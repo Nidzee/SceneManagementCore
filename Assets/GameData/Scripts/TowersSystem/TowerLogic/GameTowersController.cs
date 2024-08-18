@@ -59,11 +59,6 @@ public class GameTowersController
         OnTowerPlaceClicked.Invoke(_selectedTowerPlace);
     }
 
-    public void InspectionOverlayTESTER()
-    {
-        _selectedTowerPlace = null;
-    }
-
     public void ActivateSelectionOverlay()
     {
         _selectedTowerPlace?.UpdateSelectionStatus(true);

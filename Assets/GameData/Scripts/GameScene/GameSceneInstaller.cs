@@ -19,6 +19,11 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] EnemySpawnerController _enemySpawnerController;
     [SerializeField] Castle _castle;
     [SerializeField] GameUIController _gameUIController;
+    [SerializeField] TowerInfoUIHandler _towerInfoUIHandler;
+
+
+
+
 
 
     public override void InstallBindings()
@@ -41,6 +46,7 @@ public class GameSceneInstaller : MonoInstaller
         Container.BindInstance(_enemySpawnerController);
         Container.BindInstance(_castle);
         Container.BindInstance(_gameUIController);
+        Container.BindInstance(_towerInfoUIHandler);
     }
 
     void BindControllersLogic()
