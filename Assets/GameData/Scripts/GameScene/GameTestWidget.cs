@@ -34,12 +34,19 @@ public class GameTestWidget : MonoBehaviour
 
 
 
+    [Header("Pause button")]
+    [SerializeField] OnOffButtonWithColor _pauseButton;
+
+
+
+
     bool _widgetStatus;
 
 
 
     [HideInInspector] public UnityEvent<int> OnCoinsTriggered_Add = new UnityEvent<int>();
     [HideInInspector] public UnityEvent<int> OnCoinsTriggered_Remove = new UnityEvent<int>();
+    [HideInInspector] public UnityEvent<ButtonStatus> OnPauseEmited = new UnityEvent<ButtonStatus>();
 
 
 
@@ -67,6 +74,14 @@ public class GameTestWidget : MonoBehaviour
         
         _removeCoinsButton.onClick.RemoveAllListeners();
         _removeCoinsButton.onClick.AddListener(TriggerCoinsRemoveButtonPress);
+
+
+
+        // Initialize pause button
+        _pauseButton.Initialize();
+        _pauseButton.OnStatusUpdated.AddListener(OnPauseEmited.Invoke);
+
+
 
 
         _widgetStatus = false;

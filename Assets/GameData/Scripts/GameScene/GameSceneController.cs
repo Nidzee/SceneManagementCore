@@ -20,6 +20,25 @@ public class GameSceneController : IInitializable
     Castle _castle;
     GameUIController _gameUIController;
     TowerInfoUIHandler _towerInfoUIHandler;
+    GameSceneTransferingData _gameSceneTransferingData;
+
+
+
+
+
+
+
+
+    int _wavesAmount = 0;
+    int _currentWaveIndex = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -31,11 +50,13 @@ public class GameSceneController : IInitializable
         GameTowersController gameTowersController,
         EnemySpawnerController enemySpawnerController,
         Castle castle,
+        GameSceneTransferingData gameSceneTransferingData,
         GameUIController gameUIController,
         TowerInfoUIHandler towerInfoUIHandler,
         TowerCardsHandler towerCardsHandler
     )
     {
+        _gameSceneTransferingData = gameSceneTransferingData;
         _manaHandler = manaHandler;
         _topPanelController = topPanelController;
         _gameCoinsController = gameCoinsController;
@@ -72,14 +93,18 @@ public class GameSceneController : IInitializable
 
         _gameTowersController.OnTowerPlaceClicked.RemoveAllListeners();
         _gameTowersController.OnTowerPlaceClicked.AddListener(DetectTowerPlaceSeleted);
-
-
-
         _castle.OnLevelLost.RemoveAllListeners();
         _castle.OnLevelLost.AddListener(DetectLevelLost);
 
 
 
+        _currentWaveIndex = 0;
+        _wavesAmount = 3;
+
+
+
+
+        Debug.Log(_gameSceneTransferingData.GetSOmeData());
 
         LaunchGameLogic();
     }
@@ -101,9 +126,17 @@ public class GameSceneController : IInitializable
 
 
 
+
+
+
+
+
+
+
+
+
     void DetectTowerPlaceSeleted(TowerPlace towerPlace)
     {
-
 
         var selectionStatus = towerPlace.GetThisTowerSelectionType();
 
@@ -147,13 +180,8 @@ public class GameSceneController : IInitializable
 
     void SellTower(TowerPlace towerPlace)
     {
-        // Add coins
         _gameCoinsController.AddGameCoins(towerPlace.CalculateCoinsIncomeForTowerDestroy());
-
-        // Destroy tower on place
         towerPlace.DestroyTower();
-
-        // Stop selection
         StopTowerSelection();
     }
 
@@ -189,4 +217,58 @@ public class GameSceneController : IInitializable
     {
         
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Task runners logic
+    bool _isTasksPending = false;
+
+}
+
+
+
+
+
+
+
+
+
+
+public enum GameTaskType
+{
+    LaunchLevelWin = 0,
+    LaunchLastChance = 1,
+    LaunchLevelLose = 2,
+    LaunchWaveChange = 3,
+
+    GameSettingsTask = 4,
 }

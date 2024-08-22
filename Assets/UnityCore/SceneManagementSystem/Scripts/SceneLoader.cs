@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using UnityEngine;
 using System;
-using static Bootstrap;
+using static BootstrapController;
 
 
 // ---------------------------------------------

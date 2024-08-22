@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6225c435457bf054ab62778005f56adc, type: 3}
+  m_Name: EnemyConfigContainer
+  m_EditorClassIdentifier: 
+  _allEnemiesConfigCollect:
+  - _enemyType: 1
+    _enemyPrefab: {fileID: 8371710273681328550, guid: fd4d37d8f76ec904c8147eb380cd2417, type: 3}
+    _enemyUnitStats:
+      MaxHealth: 125
+      MoveSpeed: 24
+      CoinsDrop: 5
+      AttackPoints: 25
+      ImpactInfo:
+        DamageIncome_Sucking:
+          AspectType: 0
+          Multiplyer: 0
+        DamageIncome_Tanking:
+          AspectType: 0
+          Multiplyer: 0

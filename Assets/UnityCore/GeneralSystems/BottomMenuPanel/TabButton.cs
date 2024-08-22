@@ -37,7 +37,8 @@ public class TabButton : MonoBehaviour
     {
         DeactivateButton();
 
-        _button.BaseButton.onClick.AddListener(triggerButtonClick);
+        _button.RemoveAllListeners();
+        _button.AddListener(triggerButtonClick);
     }
 
     public void DeactivateButton()

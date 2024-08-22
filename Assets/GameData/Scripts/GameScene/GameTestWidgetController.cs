@@ -35,6 +35,10 @@ public class GameTestWidgetController
         
         _gameTestWidget.OnCoinsTriggered_Remove.RemoveAllListeners();
         _gameTestWidget.OnCoinsTriggered_Remove.AddListener(GameTest_RemoveCoins);
+
+
+        _gameTestWidget.OnPauseEmited.RemoveAllListeners();
+        _gameTestWidget.OnPauseEmited.AddListener(GameTest_UpdatePauseStatus);
     }
 
 
@@ -49,4 +53,19 @@ public class GameTestWidgetController
 
     void GameTest_AddCoins(int coinsIncome) => _coinsController.AddGameCoins(coinsIncome);
     void GameTest_RemoveCoins(int amountToRemove) => _coinsController.TryRemoveCoins(amountToRemove);
+
+    void GameTest_UpdatePauseStatus(ButtonStatus status)
+    {
+        if (status == ButtonStatus.Active)
+        {
+            PauseController.PauseControllerRef.ResumeTheGame();
+            return;
+        }
+        
+        if (status == ButtonStatus.Passive)
+        {
+            PauseController.PauseControllerRef.PauseTheGame();
+            return;
+        }
+    }
 }

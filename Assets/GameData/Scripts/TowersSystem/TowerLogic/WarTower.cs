@@ -11,11 +11,10 @@ public class WarTower : MonoBehaviour
 
     [SerializeField] FlyingProjectile _projectile;
     [SerializeField] TowerSightDetector _detector;
+    [SerializeField] float _projectileFlySpeed = 60;
 
 
 
-
-    const float PROJECTILE_FLY_SPEED = 130;
     List<BasicEnemy> _enemiesInSight;
     WarTowerConfig _myConfig;
     AspectType _damegAspectType;
@@ -55,6 +54,8 @@ public class WarTower : MonoBehaviour
         _detector.Initialize(this, config.DetecorRange);
 
 
+        PauseController.PauseControllerRef.OnPauseEmited.AddListener(Pause);
+        PauseController.PauseControllerRef.OnResumeEmited.AddListener(Resume);
 
         LaunchTowerLogic();
     }
@@ -62,6 +63,15 @@ public class WarTower : MonoBehaviour
     void LaunchTowerLogic()
     {
         _isBlocked = false;
+    }
+
+    void Pause()
+    {
+        _isPaused = true;
+    }
+    void Resume()
+    {
+        _isPaused = false;
     }
 
 
@@ -166,7 +176,7 @@ public class WarTower : MonoBehaviour
 
         // [3] Launch arrow to target
         float distance = Vector3.Distance(projectile.transform.position, target.transform.position);
-        float duration = distance / PROJECTILE_FLY_SPEED;
+        float duration = distance / _projectileFlySpeed;
 
 
 

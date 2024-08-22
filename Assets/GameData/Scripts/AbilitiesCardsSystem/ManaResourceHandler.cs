@@ -21,6 +21,7 @@ public class ManaResourceHandler : MonoBehaviour
     [HideInInspector] public UnityEvent<int> OnManaAmountUpdated = new UnityEvent<int>();
 
     bool _isWorking = false;
+    bool _isPaused = false;
     float _currentTime;
     int _resourcesAmount;
 
@@ -34,6 +35,7 @@ public class ManaResourceHandler : MonoBehaviour
     {
         // During initialization timer is not working
         _isWorking = false;
+        _isPaused = false;
 
 
         // Init resource amount data
@@ -51,17 +53,16 @@ public class ManaResourceHandler : MonoBehaviour
         // Initialize widget
         _widget.Initialize(_resourcesAmount, progress);
 
-
-
-
         // Initialize cards controller
         _cardsController.Initialize(this, _TEST_Abilities);
         _cardsController.OnManaAbilityCardClick.RemoveAllListeners();
         _cardsController.OnManaAbilityCardClick.AddListener(TryToUseCard);
-
-
-
         OnManaAmountUpdated.Invoke(_resourcesAmount);
+
+
+
+        PauseController.PauseControllerRef.OnPauseEmited.AddListener(Pause);
+        PauseController.PauseControllerRef.OnResumeEmited.AddListener(Resume);
     }
 
 
@@ -74,6 +75,9 @@ public class ManaResourceHandler : MonoBehaviour
     void UpdateGatherTimer()
     {
         if (!_isWorking)
+            return;
+
+        if (_isPaused)
             return;
 
         if (_currentTime > _resourceGatherTime)
@@ -138,6 +142,14 @@ public class ManaResourceHandler : MonoBehaviour
 
 
 
+
+
+
+
+
+
+    void Pause() => _isPaused = true;
+    void Resume() => _isPaused = false;
 
 
 

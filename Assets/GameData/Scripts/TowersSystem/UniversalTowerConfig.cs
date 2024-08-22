@@ -37,5 +37,4 @@ public enum TowerType
 {
     WarTower = 0,
     EffectTower = 1,
-    SpawnerTower = 2,
 }

@@ -14,15 +14,11 @@ public enum TowerPlaceSelectionType
 
 public class TowerPlace : MonoBehaviour
 {
-    
-
-    [SerializeField] UniversalTowerUI _towerUI;
     [SerializeField] Transform _selectionOverlay;
 
     [HideInInspector] public UnityEvent<TowerPlace> OnTowerPlaceClick = new UnityEvent<TowerPlace>();
 
 
-    bool _isSelected;
     UniversalTowerConfig _thisTowerData;
     public UniversalTowerConfig ThisTowerData => _thisTowerData;
 
@@ -34,31 +30,43 @@ public class TowerPlace : MonoBehaviour
 
     public void Initialize()
     {
-        _isSelected = false;
         _thisTowerData = null;
         _createdTowerContainer = null;
-
-
-
-        _towerUI.Initialize(this);
-        _towerUI.OnTowerPlaceClick.RemoveAllListeners();
-        _towerUI.OnTowerPlaceClick.AddListener(HandleClickOnTower);
     }
 
     public void UpdateSelectionStatus(bool status)
     {
         if (status)
         {
-            _isSelected = true;
             _selectionOverlay.gameObject.SetActive(true);
         }
         else
         {
-            _isSelected = false;
             _selectionOverlay.gameObject.SetActive(false);
         }
     }
 
+    public void HandleClickOnTower()
+    {
+        OnTowerPlaceClick.Invoke(this);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Creation and destroy logic
     public void BuildTower(UniversalTowerConfig towerConfig)
     {
         _thisTowerData = towerConfig;
@@ -85,6 +93,35 @@ public class TowerPlace : MonoBehaviour
         _thisTowerData = null;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Calculations logic
     public TowerPlaceSelectionType GetThisTowerSelectionType()
     {
         if (_thisTowerData == null)
@@ -98,28 +135,5 @@ public class TowerPlace : MonoBehaviour
     public int CalculateCoinsIncomeForTowerDestroy()
     {
         return 100;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    void HandleClickOnTower()
-    {
-        OnTowerPlaceClick.Invoke(this);
     }
 }

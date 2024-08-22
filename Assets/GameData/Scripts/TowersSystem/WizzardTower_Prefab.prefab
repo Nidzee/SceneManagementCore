@@ -829,7 +829,7 @@ GameObject:
   - component: {fileID: 6702534512767931519}
   - component: {fileID: 8363519323081528224}
   - component: {fileID: 5217001955809399100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DetectorWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1471,7 +1471,7 @@ GameObject:
   - component: {fileID: 8642339747377898485}
   - component: {fileID: 2142016903667690819}
   - component: {fileID: 7784803703298311815}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2619,6 +2619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectile: {fileID: 2140520333415250387, guid: cec8cce758b628749aa566cfc258d91a, type: 3}
   _detector: {fileID: 2142016903667690819}
+  _projectileFlySpeed: 60
 --- !u!1 &8064585173503515654
 GameObject:
   m_ObjectHideFlags: 0

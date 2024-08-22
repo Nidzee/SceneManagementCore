@@ -13,8 +13,8 @@ public class GameSceneTopPanelController : MonoBehaviour
 
     public void Initialize()
     {
-        _pauseButton.OnClick.RemoveAllListeners();
-        _pauseButton.OnClick.AddListener(DetectClickOnPauseButto);
+        _pauseButton.RemoveAllListeners();
+        _pauseButton.AddListener(DetectClickOnPauseButto);
     }
 
     void DetectClickOnPauseButto()

@@ -21,11 +21,11 @@ public class PauseMenuPopIp : BasicPopUp
 
     public void Initialize()
     {
-        _closeButton.OnClick.RemoveAllListeners();
-        _closeButton.OnClick.AddListener(OnClosePopUp_Clicked.Invoke);
+        _closeButton.RemoveAllListeners();
+        _closeButton.AddListener(OnClosePopUp_Clicked.Invoke);
 
 
-        _returnHomeButton.OnClick.RemoveAllListeners();
-        _returnHomeButton.OnClick.AddListener(OnReturnHomeButtonCLicked.Invoke);
+        _returnHomeButton.RemoveAllListeners();
+        _returnHomeButton.AddListener(OnReturnHomeButtonCLicked.Invoke);
     }
 }

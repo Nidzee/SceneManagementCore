@@ -23,8 +23,8 @@ public class InfoPopUp : BasicPopUp
 
     public void Initialize(string customInfo)
     {
-        _closeButton.OnClick.RemoveAllListeners();
-        _closeButton.OnClick.AddListener(() => OnClosePopUp_Clicked.Invoke());
+        _closeButton.RemoveAllListeners();
+        _closeButton.AddListener(() => OnClosePopUp_Clicked.Invoke());
 
 
 

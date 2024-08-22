@@ -34,7 +34,8 @@ public class BottomMenuButton : MonoBehaviour
         }
         else
         {
-            _button.OnClick.AddListener(OnButtonClick.Invoke);
+            _button.RemoveAllListeners();
+            _button.AddListener(OnButtonClick.Invoke);
             _buttonImage.color = _passiveButtonSprite;
             _buttonIcon.sprite = _passiveIconSprite;
         }

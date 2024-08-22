@@ -17,7 +17,7 @@ public class BasicEnemy : BasicAliveUnit
 
 
     // Enemy data
-    EnemyConfig _myConfig;
+    EnemyUnitStats _myConfig;
     bool _isDead = false;
     bool _isPaused = false;
     int _healthCurrent;
@@ -37,13 +37,13 @@ public class BasicEnemy : BasicAliveUnit
 
     // Initialization logic
     public virtual void Initialize(
-        EnemyConfig config,
+        EnemyUnitStats config,
         Action<int> action)
     {
         
         _myConfig = config;
-        HealthMax = _myConfig.HealthMax;
-        _healthCurrent = _myConfig.HealthMax;
+        HealthMax = _myConfig.MaxHealth;
+        _healthCurrent = _myConfig.MaxHealth;
         _moveSpeed = _myConfig.MoveSpeed;
 
 

@@ -753,11 +753,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 688989000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd15d1e127e73914e805df424c76cd62, type: 3}
+  m_Script: {fileID: 11500000, guid: 60350ead45d204448b0fcc7ccbcb9212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 688989003}
-  _clickSound: {fileID: 0}
+  _thisButton: {fileID: 688989003}
+  _buttonPressSound: {fileID: 0}
+  _animateButtonPump: 0
+  _buttonBackgroundImage: {fileID: 0}
 --- !u!114 &688989003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,11 +891,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 994639114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd15d1e127e73914e805df424c76cd62, type: 3}
+  m_Script: {fileID: 11500000, guid: 60350ead45d204448b0fcc7ccbcb9212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 994639117}
-  _clickSound: {fileID: 0}
+  _thisButton: {fileID: 994639117}
+  _buttonPressSound: {fileID: 0}
+  _animateButtonPump: 0
+  _buttonBackgroundImage: {fileID: 0}
 --- !u!114 &994639117
 MonoBehaviour:
   m_ObjectHideFlags: 0
