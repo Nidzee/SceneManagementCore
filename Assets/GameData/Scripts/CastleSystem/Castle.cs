@@ -11,12 +11,20 @@ public class Castle : BasicAliveUnit
 {
 
     [SerializeField] HealthBarHandler _healthBarHandler;
-    [SerializeField] SoundsHandler _soundsHandler;
     [SerializeField] CastleConfig _castleConfig;
     [SerializeField] Renderer _castleCoreRenderer;
+    [SerializeField] Transform _selectionOverlay;
+    [SerializeField] SoundsHandler_Tower _soundsHandler;
+
+
+    [SerializeField] AudioClip _interractSound;
+    [SerializeField] List<AudioClip> _acceptDamageSound;
+
 
 
     CastleConfig _myConfig;
+    public CastleConfig Config => _myConfig;
+    public int CurrentHealth => _currentHealth;
     int _currentHealth;
 
 
@@ -25,6 +33,8 @@ public class Castle : BasicAliveUnit
 
 
     [HideInInspector] public UnityEvent OnLevelLost = new UnityEvent();
+    [HideInInspector] public UnityEvent OnDamageTaken = new UnityEvent();
+    [HideInInspector] public UnityEvent OnCastleClicked = new UnityEvent();
 
 
 
@@ -43,6 +53,47 @@ public class Castle : BasicAliveUnit
 
         _healthBarHandler.Initialize(HealthMax, _currentHealth);
     }
+
+    public void HandleClickOnCastle()
+    {
+        _soundsHandler.PlaySound(_interractSound);
+        OnCastleClicked.Invoke();
+    }
+
+    public void ActivateSelectionOverlay()
+    {
+        _selectionOverlay.gameObject.SetActive(true);
+    }
+    public void HideSelectionOverlay()
+    {
+        _selectionOverlay.gameObject.SetActive(false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -63,6 +114,7 @@ public class Castle : BasicAliveUnit
 
 
         UpdateHealthBar(resultDamage, true);
+        OnDamageTaken.Invoke();
     }
 
 

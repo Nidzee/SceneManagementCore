@@ -15,11 +15,18 @@ public enum TowerPlaceSelectionType
 public class TowerPlace : MonoBehaviour
 {
     [SerializeField] Transform _selectionOverlay;
-
     [HideInInspector] public UnityEvent<TowerPlace> OnTowerPlaceClick = new UnityEvent<TowerPlace>();
+    [SerializeField] AudioClip _interractSound;
+    [SerializeField] AudioClip _buildSound;
+    [SerializeField] AudioClip _sellSound;
+    [SerializeField] SoundsHandler_Tower _soundsHandler;
+
+
+
 
 
     UniversalTowerConfig _thisTowerData;
+    WarTower _warTower;
     public UniversalTowerConfig ThisTowerData => _thisTowerData;
 
     Transform _createdTowerContainer;
@@ -48,6 +55,14 @@ public class TowerPlace : MonoBehaviour
 
     public void HandleClickOnTower()
     {
+        if (_thisTowerData == null)
+        {
+            _soundsHandler.PlaySound(_interractSound);
+        }
+        else
+        {
+            _warTower.PlayInterractSound();
+        }
         OnTowerPlaceClick.Invoke(this);
     }
 
@@ -77,8 +92,9 @@ public class TowerPlace : MonoBehaviour
 
         if (towerConfig.TowerType == TowerType.WarTower)
         {
-            var warTower = createdTower.GetComponent<WarTower>();
-            warTower.Initialize(towerConfig);
+            _soundsHandler.PlaySound(_buildSound);
+            _warTower = createdTower.GetComponent<WarTower>();
+            _warTower.Initialize(towerConfig);
             return;
         }
 
@@ -89,6 +105,7 @@ public class TowerPlace : MonoBehaviour
 
     public void DestroyTower()
     {
+        _soundsHandler.PlaySound(_sellSound);
         Destroy(_createdTowerContainer.gameObject);
         _thisTowerData = null;
     }

@@ -10,6 +10,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] Transform _manaWidget;
     [SerializeField] Transform _towersUI;
     [SerializeField] Transform _towerInfoUI;
+    [SerializeField] Transform _castleInfoUI;
 
 
 
@@ -26,6 +27,7 @@ public class GameUIController : MonoBehaviour
         _manaWidget.gameObject.SetActive(false);
         _towersUI.gameObject.SetActive(false);
         _towerInfoUI.gameObject.SetActive(false);
+        _castleInfoUI.gameObject.SetActive(false);
         
         _manaWidget.gameObject.SetActive(true);
     }
@@ -35,6 +37,7 @@ public class GameUIController : MonoBehaviour
         _manaWidget.gameObject.SetActive(false);
         _towersUI.gameObject.SetActive(false);
         _towerInfoUI.gameObject.SetActive(false);
+        _castleInfoUI.gameObject.SetActive(false);
 
         _towersUI.gameObject.SetActive(true);
     }
@@ -44,7 +47,18 @@ public class GameUIController : MonoBehaviour
         _manaWidget.gameObject.SetActive(false);
         _towersUI.gameObject.SetActive(false);
         _towerInfoUI.gameObject.SetActive(false);
+        _castleInfoUI.gameObject.SetActive(false);
 
         _towerInfoUI.gameObject.SetActive(true);
+    }
+    
+    public void ActivateCastleInfoUI()
+    {
+        _manaWidget.gameObject.SetActive(false);
+        _towersUI.gameObject.SetActive(false);
+        _towerInfoUI.gameObject.SetActive(false);
+        _castleInfoUI.gameObject.SetActive(false);
+
+        _castleInfoUI.gameObject.SetActive(true);
     }
 }

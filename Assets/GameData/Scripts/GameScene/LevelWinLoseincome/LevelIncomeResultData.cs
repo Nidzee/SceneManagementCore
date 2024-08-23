@@ -7,6 +7,5 @@ using UnityEngine;
 [System.Serializable]
 public class LevelIncomeResultData
 {
-    public int CrystalsIncome;
-    public int CoinsIncome;
+    public int AbtractResource;
 }

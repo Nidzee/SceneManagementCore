@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyBasicBuff : MonoBehaviour
 {
-    public abstract void Initialize(BasicEnemy thisEnemy, int levelIndex);
+    public abstract void Initialize(BasicEnemy thisEnemy);
     public abstract void RegisterHitAgain();
 
 

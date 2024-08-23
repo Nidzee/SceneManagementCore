@@ -36,7 +36,6 @@ public class EnemySpawnerController : MonoBehaviour
     int _thisStepIndex_SubstepIndex_Max = 0;
     int _thisStepIndex_SubstepIndex_Current = 0;
 
-    int _enemiesInWavesCounter = 0;
     List<StepTEST> _allStepsDataForThisWave;
 
 
@@ -49,9 +48,14 @@ public class EnemySpawnerController : MonoBehaviour
 
 
 
+    int _enemiesInWavesCounter = 0;
+    int _enemiesInWave_died = 0;
+
+
 
     // Events config
     [HideInInspector] public UnityEvent<int> OnEnemyDiedTriggered = new UnityEvent<int>();
+    [HideInInspector] public UnityEvent OnWaveFinished = new UnityEvent();
 
 
 
@@ -79,6 +83,9 @@ public class EnemySpawnerController : MonoBehaviour
     {
         _isPaused = false;
         _isTimerNeedToWork = false;
+
+        PauseController.PauseControllerRef.OnPauseEmited.AddListener(() => {_isPaused = true;});
+        PauseController.PauseControllerRef.OnResumeEmited.AddListener(() => {_isPaused = false;});
     }
 
 
@@ -175,6 +182,7 @@ public class EnemySpawnerController : MonoBehaviour
         _thisStepTimePassed = 0;
         _thisStepTimePassed_ForNextWaveChange = 0;
         _enemiesInWavesCounter = 0;
+        _enemiesInWave_died = 0;
 
         _thisStepIndex_Max = 0;
         _thisStepIndex_Current = 0;
@@ -455,12 +463,19 @@ public class EnemySpawnerController : MonoBehaviour
 
         enemyComponent.Initialize(
             targetEnemyConfig.EnemyStats,
-            AddXPAfterEnemyDeath);
+            DetectEnemyDie);
     }
 
-    void AddXPAfterEnemyDeath(int xpAmount)
+    void DetectEnemyDie(int coinsAmount)
     {
-        OnEnemyDiedTriggered.Invoke(xpAmount);
+        _enemiesInWave_died++;
+        OnEnemyDiedTriggered.Invoke(coinsAmount);
+
+
+        if (_enemiesInWave_died >= _enemiesInWavesCounter)
+        {
+            OnWaveFinished.Invoke();
+        }
     }
 
 

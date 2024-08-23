@@ -92,7 +92,6 @@ public class VisualsHandler : MonoBehaviour
             foreach (var mat in rendererData.Materials)
             {
                 mat.SetColor("_EmissionColor", targetColor);
-                mat.SetColor("_Emission", targetColor);
             }
     }
 

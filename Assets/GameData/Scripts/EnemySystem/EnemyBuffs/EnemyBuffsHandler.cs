@@ -44,7 +44,7 @@ public class EnemyBuffsHandler : MonoBehaviour
         _appliedEnemyBuff = new Dictionary<EnemyBuffType, EnemyBasicBuff>();
     }
 
-    public void RegisterNewWeaponBuff(EnemyBuffType weaponBuff, int damagePoints)
+    public void RegisterNewWeaponBuff(EnemyBuffType weaponBuff)
     {
 
         // [0] Check if this buff is already present on enemy
@@ -64,7 +64,9 @@ public class EnemyBuffsHandler : MonoBehaviour
             if (!_canApplyPoison)
                 return;
 
-
+            var posionHandler = _thisEnemy.gameObject.AddComponent<EnemyBuffsHandler_Poison>();
+            posionHandler.Initialize(_thisEnemy);
+            _appliedEnemyBuff.Add(buffType, posionHandler);
             return;
         }
 

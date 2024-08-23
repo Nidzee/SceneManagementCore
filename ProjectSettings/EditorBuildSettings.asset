@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UnityCore/SceneManagementSystem/TestingScenes/PauseMenuPopUp.unity
     guid: 55951b02a327b444ea29533f10f98d53
+  - enabled: 1
+    path: Assets/GameData/PopUps/LevelWinPopUp/LevelWinPopUp.unity
+    guid: 7e1c4bb73bff0564fb9c87eaef7b113b
+  - enabled: 1
+    path: Assets/GameData/PopUps/LevelLosePopUp/LevelLosePopUp.unity
+    guid: 9aeb76353c47cfb4890afae64cd70a8d
   m_configObjects: {}

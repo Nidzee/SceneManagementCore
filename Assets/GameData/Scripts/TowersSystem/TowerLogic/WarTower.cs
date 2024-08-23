@@ -15,6 +15,14 @@ public class WarTower : MonoBehaviour
 
 
 
+    [SerializeField] AudioClip _interractSound;
+    [SerializeField] List<AudioClip> _attackSound;
+    [SerializeField] SoundsHandler_Tower _soundsHandler;
+
+    [SerializeField] EnemyBuffType _enemyBuff;
+
+
+
     List<BasicEnemy> _enemiesInSight;
     WarTowerConfig _myConfig;
     AspectType _damegAspectType;
@@ -186,10 +194,14 @@ public class WarTower : MonoBehaviour
             () => { if (target != null) LaunchImpactLogic(target); },
             () => {  }
             );
+
+
+        _soundsHandler.PlaySound(_attackSound);
     }
 
     void LaunchImpactLogic(BasicEnemy target)
     {
+        target.TryToApplyBuff(_enemyBuff);
         target.AcceptDamage(_damegAspectType, _damagePoints);
     }
 
@@ -244,6 +256,13 @@ public class WarTower : MonoBehaviour
 
 
 
+
+
+    // Sounds logic
+    public void PlayInterractSound()
+    {
+        _soundsHandler.PlaySound(_interractSound);
+    }
 
 
 

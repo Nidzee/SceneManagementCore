@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemiesWavesConfig:
   - {fileID: 11400000, guid: 07d14644ae8abab46ada07ab24616068, type: 2}
-  - {fileID: 11400000, guid: 30a7b950642841746a63003ea95d9c26, type: 2}
+  - {fileID: 11400000, guid: 296d516d50fdeb340b087b77cf5cc3fb, type: 2}

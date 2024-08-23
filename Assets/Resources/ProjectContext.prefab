@@ -74,3 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baacc78bd4e29384c817d353ad3ece22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesConfig: {fileID: 11400000, guid: 1218f03a77562c6409bc31e2adcaf996, type: 2}
+  _gameSoundsConfig: {fileID: 11400000, guid: 3553fe469c3f367408bd07419095f662, type: 2}

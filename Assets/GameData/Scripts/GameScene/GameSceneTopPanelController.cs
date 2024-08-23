@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 
@@ -8,6 +9,8 @@ using UnityEngine;
 public class GameSceneTopPanelController : MonoBehaviour
 {
     [SerializeField] BasicButton _pauseButton;
+
+    [HideInInspector] public UnityEvent OnPauseButtonClicked = new UnityEvent();
 
 
 
@@ -19,8 +22,6 @@ public class GameSceneTopPanelController : MonoBehaviour
 
     void DetectClickOnPauseButto()
     {
-        PauseMenuPopIpRoute route = new PauseMenuPopIpRoute();
-
-        route.StartRoute();
+        OnPauseButtonClicked.Invoke();
     }
 }

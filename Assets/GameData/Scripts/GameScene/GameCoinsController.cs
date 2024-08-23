@@ -10,6 +10,7 @@ public class GameCoinsController
 {
     const int START_COINS_AMOUNT = 500;
     GameCoinsWidget _gameCoinsWidget;
+    EnemySpawnerController _enemySpawnerController;
     int _gameCoinsAmount;
     public int ActualCoinsAmount => _gameCoinsAmount;
     public UnityEvent<int> OnGameCoinsUpdated = new UnityEvent<int>();
@@ -21,9 +22,11 @@ public class GameCoinsController
 
 
     public GameCoinsController(
-        GameCoinsWidget gameCoinsWidget
+        GameCoinsWidget gameCoinsWidget,
+        EnemySpawnerController enemySpawnerController
     )
     {
+        _enemySpawnerController = enemySpawnerController;
         _gameCoinsWidget = gameCoinsWidget;
     }
 
@@ -36,6 +39,9 @@ public class GameCoinsController
         OnGameCoinsUpdated.RemoveAllListeners();
         OnGameCoinsUpdated.AddListener(_gameCoinsWidget.NotifyCoinsUpdated);
 
+        _enemySpawnerController.OnEnemyDiedTriggered.AddListener(HandleEnemyDie);
+
+
         NotifyCoinsUpdated();
     }
 
@@ -47,7 +53,10 @@ public class GameCoinsController
 
 
 
-
+    void HandleEnemyDie(int coinsIncome)
+    {
+        AddGameCoins(coinsIncome);
+    }
 
     public void AddGameCoins(int coinsIncome)
     {

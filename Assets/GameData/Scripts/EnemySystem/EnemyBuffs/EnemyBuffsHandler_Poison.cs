@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,16 +9,16 @@ public class EnemyBuffsHandler_Poison : EnemyBasicBuff
 {
     public EnemyBuffType EnemyBuffType = EnemyBuffType.Poison;
 
+
+
+
     bool _isBlocked = true;
     int _damagePoints;
     float _duration;
     float _currentTimePassed;
     float _currentTimePassed_secondTracker;
-
-    //BuffData_Poison _buffData;
+    EnemyBuffData_Poison _buffData;
     BasicEnemy _thisEnemy;
-
-
     ParticleSystem _auraParticles;
 
 
@@ -25,93 +26,96 @@ public class EnemyBuffsHandler_Poison : EnemyBasicBuff
 
 
 
-    public override void Initialize(BasicEnemy thisEnemy, int levelIndex)
+
+
+
+
+    public override void Initialize(BasicEnemy thisEnemy)
     {
+        _isBlocked = true;
+        _thisEnemy = thisEnemy;
+        _currentTimePassed = 0f;
+        _currentTimePassed_secondTracker = 0f;
+        _buffData = TemproraryDistributor.Instance.EnemyBuffData_Poison;
+        _damagePoints = _buffData.DamagePointsPerSecond;
+        _duration = _buffData.Duration_Seconds;
 
-        // _isBlocked = true;
-        // _thisEnemy = thisEnemy;
-        // _currentTimePassed = 0f;
-        // _currentTimePassed_secondTracker = 0f;
-        // _damagePoints = configData.DamagePointsPerSecond;
-        // _duration = configData.Duration_Seconds;
 
-        // TryToCreateParticles(_buffData.ApplyBuffParticles);
-        // _auraParticles = TryToCreateParticles(_buffData.AuraParticles);
-
-        // LaunchBuffAction();
+        LaunchBuffAction();
     }
 
     public void LaunchBuffAction()
     {
-        // _isBlocked = false;
+        _isBlocked = false;
 
-        // if (_buffData.UseCustomHealthBarColor)
-        //     _thisEnemy.ChangeHealthSliderColor(_buffData.HealthColor);
 
-        // if (_buffData.UseCustomModelBarColor)
-        //     _thisEnemy.ChangeModelColor(_buffData.ModelColor);
+        if (_buffData.ImpactParticles != null)
+            _thisEnemy.TryToCreateParticles(_buffData.ImpactParticles, false);
+
+        if (_buffData.AuraParticles != null)
+            _thisEnemy.TryToCreateParticles(_buffData.AuraParticles, false);
+
+        if (_buffData.UseCustomHealthBarColor)
+            _thisEnemy.ChangeHealthSliderColor(_buffData.HealthColor);
+
+        if (_buffData.UseCustomModelBarColor)
+            _thisEnemy.ChangeModelColor(_buffData.ModelColor);
     }
 
     public override void RegisterHitAgain()
     {
-        // TryToCreateParticles(_buffData.ImpactParticles);
+        if (_buffData.ImpactParticles != null)
+            _thisEnemy.TryToCreateParticles(_buffData.ImpactParticles, false);
     }
-
-
-
-
-
-
-
-    public override void PauseBuffsLogic() => _isBlocked = true;
-    public override void ResumeBuffsLogic() => _isBlocked = false;
-
-
-
-
-
-
-
-
 
     public void Update()
     {
-        // if (_isBlocked)
-        //     return;
+        if (_isBlocked)
+            return;
 
 
-        // _currentTimePassed += Time.deltaTime;
-        // _currentTimePassed_secondTracker += Time.deltaTime;
-
-
-
-        // // If whole second passed -> apply damage
-        // if (_currentTimePassed_secondTracker >= 1)
-        // {
-        //     _currentTimePassed_secondTracker -= 1;
-        //     _thisEnemy.AcceptDamage(_damagePoints, false);
-
-        //     // Launch attack sound
-        //     var randomDamageSound = RandomElementFromList.GetRandomElement(_buffData.ApplyDamageSound);
-        //     AudioManager.Instance.PlaySound(randomDamageSound);
-        // }
+        _currentTimePassed += Time.deltaTime;
+        _currentTimePassed_secondTracker += Time.deltaTime;
 
 
 
-        // // Check if time is up
-        // if (_currentTimePassed >= _duration)
-        // {
-        //     _isBlocked = true;
-        //     _thisEnemy.TryToRemoveBuff(EnemyBuffType);
+        // If whole second passed -> apply damage
+        if (_currentTimePassed_secondTracker >= 1)
+        {
+            _currentTimePassed_secondTracker -= 1;
+            _thisEnemy.AcceptDamage(AspectType.None, _damagePoints);
 
-        //     if (_auraParticles != null)
-        //         _auraParticles.transform.DOScale(0, 0.5f).OnComplete(() => Destroy(_auraParticles.gameObject));
+            // Launch attack sound
+            var randomDamageSound = RandomElementFromList.GetRandomElement(_buffData.ApplyDamageSound);
+            AudioManager.Instance.PlaySound(randomDamageSound);
+        }
 
-        //     if (_buffData.UseCustomModelBarColor)
-        //         _thisEnemy.ReturnHealthBarOriginalColor();
 
-        //     if (_buffData.UseCustomModelBarColor)
-        //         _thisEnemy.ReturnModelOriginalColor();
-        // }
+
+        // Check if time is up
+        if (_currentTimePassed >= _duration)
+        {
+            _isBlocked = true;
+            _thisEnemy.TryToRemoveBuff(EnemyBuffType);
+
+            if (_auraParticles != null)
+                _auraParticles.transform.DOScale(0, 0.5f).OnComplete(() => Destroy(_auraParticles.gameObject));
+
+            if (_buffData.UseCustomModelBarColor)
+                _thisEnemy.ReturnHealthBarOriginalColor();
+
+            if (_buffData.UseCustomModelBarColor)
+                _thisEnemy.ReturnModelOriginalColor();
+        }
     }
+
+
+
+
+
+
+    
+
+    public override void PauseBuffsLogic() => _isBlocked = true;
+    public override void ResumeBuffsLogic() => _isBlocked = false;
 }

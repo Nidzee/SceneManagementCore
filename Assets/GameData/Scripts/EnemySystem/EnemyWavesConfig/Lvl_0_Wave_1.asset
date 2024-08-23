@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Lvl_0_Wave_1
   m_EditorClassIdentifier: 
   WaveWinIncome:
-    CrystalsIncome: 5
-    CoinsIncome: 50
+    AbtractResource: 0
   WaveLoseIncome:
-    CrystalsIncome: 5
-    CoinsIncome: 10
+    AbtractResource: 0
   WaveConfig:
-    StepsList: []
+    StepsList:
+    - TimeToNextStep: 3
+      EnemyStepSpawnType: 0
+      RespawnPosition: 2
+      EnemyToSpawn: 1
+      AmountToSpawn: 5

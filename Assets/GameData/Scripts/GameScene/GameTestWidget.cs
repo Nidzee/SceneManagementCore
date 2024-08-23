@@ -39,6 +39,13 @@ public class GameTestWidget : MonoBehaviour
 
 
 
+    [Header("Win/Lose buttons")]
+    [SerializeField] Button _winLevelButton;
+    [SerializeField] Button _loseLevelButton;
+    
+
+
+
 
     bool _widgetStatus;
 
@@ -47,6 +54,8 @@ public class GameTestWidget : MonoBehaviour
     [HideInInspector] public UnityEvent<int> OnCoinsTriggered_Add = new UnityEvent<int>();
     [HideInInspector] public UnityEvent<int> OnCoinsTriggered_Remove = new UnityEvent<int>();
     [HideInInspector] public UnityEvent<ButtonStatus> OnPauseEmited = new UnityEvent<ButtonStatus>();
+    [HideInInspector] public UnityEvent OnLevelWinClicked = new UnityEvent();
+    [HideInInspector] public UnityEvent OnLevelLoseClicked = new UnityEvent();
 
 
 
@@ -84,6 +93,15 @@ public class GameTestWidget : MonoBehaviour
 
 
 
+        _winLevelButton.onClick.RemoveAllListeners();
+        _winLevelButton.onClick.AddListener(TriggerLevelWin);
+
+        _loseLevelButton.onClick.RemoveAllListeners();
+        _loseLevelButton.onClick.AddListener(TriggerLevelLose);
+
+
+
+
         _widgetStatus = false;
         _panelContent.gameObject.SetActive(_widgetStatus);
     }
@@ -101,4 +119,6 @@ public class GameTestWidget : MonoBehaviour
 
     void TriggerCoinsAddButtonPress() => OnCoinsTriggered_Add.Invoke(_coinsAmount);
     void TriggerCoinsRemoveButtonPress() => OnCoinsTriggered_Remove.Invoke(_coinsAmount);
+    void TriggerLevelWin() => OnLevelWinClicked.Invoke();
+    void TriggerLevelLose() => OnLevelLoseClicked.Invoke();
 }

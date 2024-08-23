@@ -20,8 +20,9 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] Castle _castle;
     [SerializeField] GameUIController _gameUIController;
     [SerializeField] TowerInfoUIHandler _towerInfoUIHandler;
-
-
+    [SerializeField] GameLevelConfig _levelConfig;
+    [SerializeField] GameInputHandler _gameInputHandler;
+    [SerializeField] CastleInfoUIHandler _castleInfoHandler;
 
 
 
@@ -47,6 +48,9 @@ public class GameSceneInstaller : MonoInstaller
         Container.BindInstance(_castle);
         Container.BindInstance(_gameUIController);
         Container.BindInstance(_towerInfoUIHandler);
+        Container.BindInstance(_levelConfig);
+        Container.BindInstance(_gameInputHandler);
+        Container.BindInstance(_castleInfoHandler);
     }
 
     void BindControllersLogic()

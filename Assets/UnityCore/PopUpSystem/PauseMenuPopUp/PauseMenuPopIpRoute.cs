@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine.Events;
 
 
 
@@ -11,6 +12,7 @@ public class PauseMenuPopIpRoute
     PauseMenuPopIp _popUp;
     const string SCENE_NAME = "PauseMenuPopUp";
 
+    public UnityEvent<bool> CallbackTryToQuitLevel = new UnityEvent<bool>();
 
     public void StartRoute()
     {
@@ -56,17 +58,19 @@ public class PauseMenuPopIpRoute
         PopUpController.ReleasePopUp(SCENE_NAME);
     }
 
+
+
+
+
     void DetectReturnHomeEmited()
     {
+        CallbackTryToQuitLevel.Invoke(true);
         SceneLoader.LoadScene<MainMenuScene>("MainMenuScene", SceneLoader.LoadingAnimationType.WithAnimation).Forget();
     }
-
-
-
-
     
     async void TriggerClosePopUp()
     {
         await _popUp.AnimatePopUp_Hide();
+        CallbackTryToQuitLevel.Invoke(false);
     }
 }

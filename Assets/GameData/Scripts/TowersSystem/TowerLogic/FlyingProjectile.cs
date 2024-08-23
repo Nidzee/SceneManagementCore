@@ -63,7 +63,7 @@ public class FlyingProjectile : MonoBehaviour
         _timeFlySpend += Time.deltaTime;
         float percentage = _timeFlySpend / _flyDuration;
         percentage = Mathf.Clamp01(percentage);
-        transform.position = Vector3.Lerp(_startPoint, _thisTarget.transform.position, percentage);
+        transform.position = Vector3.Lerp(_startPoint, _thisTarget.ArrowDestinationPoint.transform.position, percentage);
 
 
         if (percentage >= 1)

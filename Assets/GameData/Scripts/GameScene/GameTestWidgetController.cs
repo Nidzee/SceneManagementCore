@@ -10,7 +10,7 @@ public class GameTestWidgetController
 {
     GameTestWidget _gameTestWidget;
     GameCoinsController _coinsController;
-
+    GameSceneController _controller;
 
 
 
@@ -25,8 +25,12 @@ public class GameTestWidgetController
     }
 
 
-    public void Initialize()
+    public void Initialize(GameSceneController controller)
     {
+        _controller = controller;
+
+
+
         _gameTestWidget.Initalize();
 
         _gameTestWidget.OnCoinsTriggered_Add.RemoveAllListeners();
@@ -39,6 +43,13 @@ public class GameTestWidgetController
 
         _gameTestWidget.OnPauseEmited.RemoveAllListeners();
         _gameTestWidget.OnPauseEmited.AddListener(GameTest_UpdatePauseStatus);
+
+
+        _gameTestWidget.OnLevelWinClicked.RemoveAllListeners();
+        _gameTestWidget.OnLevelWinClicked.AddListener(_controller.GAMETEST_Win);
+        
+        _gameTestWidget.OnLevelLoseClicked.RemoveAllListeners();
+        _gameTestWidget.OnLevelLoseClicked.AddListener(_controller.GAMETEST_Lose);
     }
 
 

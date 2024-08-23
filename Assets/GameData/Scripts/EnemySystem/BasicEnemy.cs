@@ -12,7 +12,8 @@ public class BasicEnemy : BasicAliveUnit
     [SerializeField] HealthBarHandler _healthBarHandler;
     [SerializeField] VisualsHandler _visualsHandler;
     [SerializeField] SoundsHandler _soundsHandler;
-
+    [SerializeField] EnemyBuffsHandler _buffsHandler;
+    public Transform ArrowDestinationPoint;
     
 
 
@@ -49,6 +50,7 @@ public class BasicEnemy : BasicAliveUnit
 
         _healthBarHandler.Initialize(HealthMax, _healthCurrent);
         _visualsHandler?.Initialize();
+        _buffsHandler?.Initialize(this);
 
 
         PauseController.PauseControllerRef.OnPauseEmited.AddListener(PauseUnit);
@@ -63,20 +65,24 @@ public class BasicEnemy : BasicAliveUnit
         int resultDamage = damageIncomeValue;
 
 
-        // Calculate damage
-        var impactInfo = _myConfig.ImpactInfo;
-        if (impactInfo == null)
+        if (damageAspect != AspectType.None)
         {
-            resultDamage = damageIncomeValue;
-        }
-        else
-        {
-            if (impactInfo.DamageIncome_Sucking.AspectType == damageAspect)
-                resultDamage = (int)(damageIncomeValue * impactInfo.DamageIncome_Sucking.Multiplyer);
+            // Calculate damage
+            var impactInfo = _myConfig.ImpactInfo;
+            if (impactInfo == null)
+            {
+                resultDamage = damageIncomeValue;
+            }
+            else
+            {
+                if (impactInfo.DamageIncome_Sucking.AspectType == damageAspect)
+                    resultDamage = (int)(damageIncomeValue * impactInfo.DamageIncome_Sucking.Multiplyer);
 
-            if (impactInfo.DamageIncome_Tanking.AspectType == damageAspect)
-                resultDamage = (int)(damageIncomeValue * impactInfo.DamageIncome_Tanking.Multiplyer);
+                if (impactInfo.DamageIncome_Tanking.AspectType == damageAspect)
+                    resultDamage = (int)(damageIncomeValue * impactInfo.DamageIncome_Tanking.Multiplyer);
+            }
         }
+
 
 
 
@@ -166,6 +172,11 @@ public class BasicEnemy : BasicAliveUnit
     public void ChangeHealthSliderColor(Color targetColor) => _healthBarHandler?.SetHealthSliderColor(targetColor);
     public void ReturnHealthBarOriginalColor() => _healthBarHandler?.SetOriginalHealthProgressBarColor();
 
+
+
+     // Buffs collections logic
+    public void TryToApplyBuff(EnemyBuffType buffType) => _buffsHandler?.RegisterNewWeaponBuff(buffType);
+    public void TryToRemoveBuff(EnemyBuffType buffType) => _buffsHandler?.RemoveBuffFromPlayer(buffType);
 
 
 

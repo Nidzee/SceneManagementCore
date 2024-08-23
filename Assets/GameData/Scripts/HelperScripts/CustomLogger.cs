@@ -23,8 +23,8 @@ public static class CustomLogger
     static bool LOG_PLAYER_CONTROLLER = true;
     static string PLAYER_CONTROLLER_KEY = "[PLAYER-CONTROLLER]";
 
-    static bool LOG_UI = true;
-    static string UI_KEY = "[UI]";
+    static bool LOG_INPUT_HANDLER = true;
+    static string INPUT_HANDLER_KEY = "[INPUT-HANDLER]";
 
     static bool LOG_ENEMY_SPAWNER = true;
     static string ENEMY_SPAWNER_KEY = "-[ENEMY-SPAWNER]-";
@@ -91,13 +91,13 @@ public static class CustomLogger
         Debug.Log("<color=pink>" + PLAYER_CONTROLLER_KEY + " " + message + "</color>");
     }
 
-    public static void LogUI(string message)
+    public static void LogInputHandler(string message)
     {
-        if (!LOG_UI)
+        if (!LOG_INPUT_HANDLER)
             return;
 
 
-        Debug.Log("<color=gray>" + UI_KEY + " " + message + "</color>");
+        Debug.Log("<color=gray>" + INPUT_HANDLER_KEY + " " + message + "</color>");
     }
 
     public static void LogEnemySpawner(string message)

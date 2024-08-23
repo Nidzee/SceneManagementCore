@@ -10,4 +10,6 @@ public class CastleConfig : ScriptableObject
 {
     public int HealthAmount;
     public Color Color;
+    public Sprite Icon;
+    public string Name;
 }

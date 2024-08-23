@@ -116,6 +116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5621300209389079377}
+  - {fileID: 5561484249399732271}
   - {fileID: 1915079687927056490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,6 +136,8 @@ MonoBehaviour:
   _healthBarHandler: {fileID: 2048034906486382525}
   _visualsHandler: {fileID: 4738777630722912189}
   _soundsHandler: {fileID: 352659080954688131}
+  _buffsHandler: {fileID: 2527412941470624380}
+  ArrowDestinationPoint: {fileID: 5561484249399732271}
   OnEnemyDied:
     m_PersistentCalls:
       m_Calls: []
@@ -184,7 +187,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &2537800410229706074
 GameObject:
@@ -218,6 +221,7 @@ Transform:
   - {fileID: 6152356047863327716}
   - {fileID: 5149382155334078070}
   - {fileID: 6814148687617360859}
+  - {fileID: 3563315696674237675}
   m_Father: {fileID: 6117103099929017534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4225481077365082746
@@ -270,6 +274,37 @@ MonoBehaviour:
   _deathParticleSystem: {fileID: 0}
   _modelTrans: {fileID: 5621300209389079377}
   _buffsParticlesContainer: {fileID: 156962633907011792}
+--- !u!1 &4580841772970510028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5561484249399732271}
+  m_Layer: 0
+  m_Name: ArrowDestinationPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5561484249399732271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580841772970510028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6117103099929017534}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4594967653664876740
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +336,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6814148687617360859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5948241961308157183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3563315696674237675}
+  - component: {fileID: 2527412941470624380}
+  m_Layer: 0
+  m_Name: BuffsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3563315696674237675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948241961308157183}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1915079687927056490}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2527412941470624380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948241961308157183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698cf1363d174be47b9e096dd5aa3968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canApplyFrost: 1
+  _canApplyPoison: 1
+  _canApplyFire: 1
 --- !u!1 &6548091875071766249
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +441,10 @@ PrefabInstance:
     - target: {fileID: 2275492712794679684, guid: a7ee0fdc10c251841b9bcee5c20151b0, type: 3}
       propertyPath: m_Name
       value: HealthBarHandler_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693914470631316714, guid: a7ee0fdc10c251841b9bcee5c20151b0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3380781681192133897, guid: a7ee0fdc10c251841b9bcee5c20151b0, type: 3}
       propertyPath: m_AnchorMax.x

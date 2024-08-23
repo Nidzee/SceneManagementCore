@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthAmount: 250
   Color: {r: 0.26981127, g: 1, b: 0.30992922, a: 1}
+  Icon: {fileID: 21300000, guid: 94efd5eef3afaae479f46d1039e07807, type: 3}
+  Name: Castle_0
