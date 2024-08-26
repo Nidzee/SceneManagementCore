@@ -114,6 +114,7 @@ public class GameSceneController : IInitializable
         _enemySpawnerController.OnWaveFinished.AddListener(AddWaveFinishedTask);
         _topPanelController.OnPauseButtonClicked.RemoveAllListeners();
         _topPanelController.OnPauseButtonClicked.AddListener(AddPausePopUpTask);
+        _gameInputHandler.OnCameraMoveRecieved.AddListener(TryToOpenDefaultUIAfterDrag);
 
 
         _currentWaveIndex = 0;
@@ -277,10 +278,17 @@ public class GameSceneController : IInitializable
 
 
 
-
+    void TryToOpenDefaultUIAfterDrag(Vector2 screenPoint)
+    {
+        StopTowerSelection();
+    }
 
     void DetectClickOnCastle()
     {
+        _gameCameraController.MoveCameraToPosition(_castle.transform.position);
+
+        _castle.HideSelectionOverlay();
+        _gameTowersController.StopSelection();
         _gameUIController.ActivateCastleInfoUI();
         _castle.ActivateSelectionOverlay();
 
@@ -291,6 +299,10 @@ public class GameSceneController : IInitializable
 
     void DetectTowerPlaceSeleted(TowerPlace towerPlace)
     {
+        _gameCameraController.MoveCameraToPosition(towerPlace.transform.position);
+
+        _castle.HideSelectionOverlay();
+
 
         var selectionStatus = towerPlace.GetThisTowerSelectionType();
 
@@ -341,9 +353,9 @@ public class GameSceneController : IInitializable
 
     void StopTowerSelection()
     {
-        _gameUIController.ActivateManaScreen();
-        _gameTowersController.StopSelection();
         _castle.HideSelectionOverlay();
+        _gameTowersController.StopSelection();
+        _gameUIController.ActivateManaScreen();
     }
 
 
