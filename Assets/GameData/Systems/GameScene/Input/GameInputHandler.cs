@@ -69,6 +69,10 @@ public class GameInputHandler : MonoBehaviour
     // Touch press logic
     void OnTouchPress_Started(InputAction.CallbackContext context)
     {
+        if (_isPaused)
+            return;
+
+
         // Get touch screen point
         var touchPos = _inputMap.Gameplay.TouchPosition.ReadValue<Vector2>();
         
@@ -131,11 +135,6 @@ public class GameInputHandler : MonoBehaviour
 
     bool TryToDetectClick(Vector2 touchStartPos)
     {
-        if (_isPaused)
-            return false;
-        
-
-
         var ray = _mainCamera.ScreenPointToRay(touchStartPos);
         RaycastHit raycastHit;
         if (!Physics.Raycast(ray, out raycastHit, float.MaxValue, _detectLayers))
@@ -216,6 +215,15 @@ public class GameInputHandler : MonoBehaviour
 
 
     // Controlling methods
-    void Pause() => _isPaused = true;
-    void Resume() => _isPaused = false;
+    void Pause()
+    {
+        _isPaused = true;
+        _inputMap.Enable();
+    }
+
+    void Resume()
+    {
+        _isPaused = false;
+        _inputMap.Disable();
+    }
 }

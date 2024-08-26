@@ -29,6 +29,7 @@ public class UniversalButton  : MonoBehaviour
 
     // Public references
     public Button ThisButton => _thisButton;
+    public RectTransform RectTransform => _thisButton.GetComponent<RectTransform>();
 
 
 
