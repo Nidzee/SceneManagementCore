@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PauseMenuPopIp : BasicPopUp
 {
-    [SerializeField] BasicButton _returnHomeButton;
+    [SerializeField] UniversalButton _returnHomeButton;
 
 
 

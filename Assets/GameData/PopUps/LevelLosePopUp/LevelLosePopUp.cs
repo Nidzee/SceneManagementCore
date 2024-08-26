@@ -14,7 +14,7 @@ using TMPro;
 public class LevelLosePopUp : BasicPopUp
 {
     [SerializeField] TMP_Text _infoLabel;
-    [SerializeField] BasicButton _homeButton;
+    [SerializeField] UniversalButton _homeButton;
 
 
     [HideInInspector] public UnityEvent OnHomeButtonClicked = new UnityEvent();

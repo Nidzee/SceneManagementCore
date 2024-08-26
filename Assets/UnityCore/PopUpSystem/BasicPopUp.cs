@@ -16,7 +16,7 @@ public class BasicPopUp : MonoBehaviour
     [SerializeField] protected Image _blackOverlay;
     [SerializeField] protected RectTransform _contentHolder;
 
-    [SerializeField] protected BasicButton _closeButton;
+    [SerializeField] protected UniversalButton _closeButton;
 
     string _sceneName;
 

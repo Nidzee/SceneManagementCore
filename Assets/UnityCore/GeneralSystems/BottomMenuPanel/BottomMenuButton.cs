@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine;
+
+
+
+
+
+
 
 public class BottomMenuButton : MonoBehaviour
 {
+    
     [Header("VisualsBasic components")]
-    [SerializeField] BasicButton _button;
+    [SerializeField] UniversalButton _button;
     [SerializeField] Image _buttonIcon;
     [SerializeField] Image _buttonImage;
 
@@ -20,7 +25,15 @@ public class BottomMenuButton : MonoBehaviour
     [SerializeField] Sprite _passiveIconSprite;
 
 
-    public UnityEvent OnButtonClick = new UnityEvent();
+
+
+    [HideInInspector] public UnityEvent OnButtonClick = new UnityEvent();
+
+
+
+
+
+
 
 
 

@@ -89,6 +89,7 @@ public class InterstitialsManager : GeneralManager<InterstitialsManager>, IUnity
         if (!_loadStatus)
         {
             Debug.LogError(LOGGER_KEY + " loading interstitial failed -> aborted");
+            callback?.Invoke(false);
             return;
         }
 
